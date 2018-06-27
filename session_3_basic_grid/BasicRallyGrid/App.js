@@ -17,7 +17,7 @@ Ext.define('CustomApp', {
     _loadData: function() {
 
       var myStore = Ext.create('Rally.data.wsapi.Store', {
-          model: 'User Story',
+          model: 'User',
           autoLoad: true,                         // <----- Don't forget to set this to true! heh
           listeners: {
               load: function(myStore, myData, success) {
@@ -26,18 +26,18 @@ Ext.define('CustomApp', {
               },
               scope: this                         // This tells the wsapi data store to forward pass along the app-level context into ALL listener functions
           },
-          fetch: ['FormattedID', 'Name', 'ScheduleState']   // Look in the WSAPI docs online to see all fields available!
+          fetch: ['UserName', 'FirstName', 'LastName', 'DisplayName', 'OnpremLdapUsername', 'TeamMemberships']   // Look in the WSAPI docs online to see all fields available!
         });
 
     },
 
     // Create and Show a Grid of given stories
-    _loadGrid: function(myStoryStore) {
+    _loadGrid: function(myUserStore) {
 
       var myGrid = Ext.create('Rally.ui.grid.Grid', {
-        store: myStoryStore,
+        store: myUserStore,
         columnCfgs: [         // Columns to display; must be the same names specified in the fetch: above in the wsapi data store
-          'FormattedID', 'Name', 'ScheduleState'
+          'UserName', 'FirstName', 'LastName', 'DisplayName', 'OnpremLdapUsername', 'TeamMemberships'
         ]
       });
 
@@ -48,3 +48,4 @@ Ext.define('CustomApp', {
     }
 
 });
+
